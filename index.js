@@ -25,11 +25,18 @@
  }
  */
  app.post('/srcFile',function(req,res) {
-   var dirname = path.dirname(req.body.file_name);
-   if(!fs.existsSync(dirname)){
-     fs.mkdirSync(dirname)
+
+   //build dirs
+   var pathPatterns = path.dirname(req.body.file_name).split('/');
+   var tmpPath = '';
+   for (var i = 0; i < pathPatterns.length; i++){
+     tmpPath += pathPatterns[i] + '/';
+     if(!fs.existsSync(tmpPath)){
+       fs.mkdirSync(tmpPath)
+     }
    }
 
+   //write file
    fs.appendFile(req.body.file_name, req.body.content, function (err) {
      if (err)
        throw err;
@@ -50,11 +57,11 @@ app.get('/result', function(req, res) {
   var execResult='';
 
   //file java file
-  shell.cd('/usr/src/app/src');  //path in docker image
+  shell.cd('src');  //path in docker image
   var javaFiles = shell.find('.').filter(function(file) { return file.match(/\.java$/); });
 
   //compile
-  var javac = childProcess.spawn('javac',javaFiles)
+  var javac = childProcess.spawn('javac',javaFiles,{encoding:'utf8'})
   javac.stderr.on('data', function (data) {
     compileResult += data;
   });
@@ -73,13 +80,13 @@ app.get('/result', function(req, res) {
         execResult += data;
       });
       java.on('close', function (code) {
-        shell.rm('-rf','./*')
-        //shell.cd('..')
+        shell.cd('..')
+        shell.rm('-rf','./src')
         return res.status(200).send(execResult);
       })
     }else {
-      shell.rm('-rf','./*')
-      //shell.cd('..')
+      shell.cd('..')
+      shell.rm('-rf','./src')
       return res.status(200).send(compileResult);
     }
   });
