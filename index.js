@@ -50,7 +50,7 @@ app.get('/result', function(req, res) {
   var execResult='';
 
   //file java file
-  shell.cd('src');  //path in docker image
+  shell.cd('/usr/src/app/src');  //path in docker image
   var javaFiles = shell.find('.').filter(function(file) { return file.match(/\.java$/); });
 
   //compile
@@ -74,12 +74,12 @@ app.get('/result', function(req, res) {
       });
       java.on('close', function (code) {
         shell.rm('-rf','./*')
-        shell.cd('..')
+        //shell.cd('..')
         return res.status(200).send(execResult);
       })
     }else {
       shell.rm('-rf','./*')
-      shell.cd('..')
+      //shell.cd('..')
       return res.status(200).send(compileResult);
     }
   });
