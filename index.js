@@ -61,7 +61,7 @@ app.get('/result', function(req, res) {
   var javaFiles = shell.find('.').filter(function(file) { return file.match(/\.java$/); });
 
   //compile
-  var javac = childProcess.spawn('javac',javaFiles,{encoding:'GBK'})
+  var javac = childProcess.spawn('javac',javaFiles,{encoding:'UTF-8'})
   javac.stderr.on('data', function (data) {
     compileResult += data;
   });
@@ -72,7 +72,7 @@ app.get('/result', function(req, res) {
     if(code === 0){
 
       //execute
-      var java = childProcess.spawn('java',['Application'],{'Dfile.encoding':'GBK'})
+      var java = childProcess.spawn('java',['Application'])
       java.stderr.on('data', function (data) {
         execResult += data;
       });
