@@ -1,0 +1,14 @@
+{
+    "file_name": "src/dir/ClassB.java", 
+    "content": "package dir;public class ClassB {public ClassB(){System.out.println(\"this is ClassB\");}}"
+}
+
+{
+    "file_name": "src/ClassA.java", 
+    "content": "public class ClassA {public ClassA(){System.out.println(\"this is ClassA\");}}"
+}
+
+{
+    "file_name": "src/Application.java", 
+    "content": "import dir.ClassB;public class Application {public static void main(String[] args){ClassA a = new ClassA();ClassB b = new ClassB();System.out.println(\"hello world from main！\");}}"
+}
