@@ -1,0 +1,40 @@
+
+{
+"name":"/",
+"children":
+[
+    { 
+        "name" : "/dir", 
+        "children" : [
+            {
+                "name" : "/dir/ClassB.java", 
+                "context": "package dir;public class ClassB {public ClassB(){System.out.println(\"this is ClassB\");}}"
+            }
+        ]
+    },
+    {
+        "name" : "/Application.java", 
+        "context": "import dir.ClassB;public class Application {public static void main(String[] args){ClassA a = new ClassA();ClassB b = new ClassB();System.out.println(\"hello world from main！\");}}"
+    },
+    {
+        "name" : "/ClassA.java", 
+        "context": "public class ClassA {public ClassA(){System.out.println(\"this is ClassA\");}}"
+    } 
+]}
+
+
+
+
+{
+    "name" : "/directory1/dir1", 
+    "children": [
+        { 
+            "name" : "/directory1/dir1/filename4", 
+            "context": "I am hello4.java"
+        },
+        { 
+            "name" : "/directory1/dir1/filename5", 
+            "context": "I am hello5.java"
+        }
+    ]
+},
