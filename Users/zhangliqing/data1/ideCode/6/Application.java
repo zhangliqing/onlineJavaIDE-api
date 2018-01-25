@@ -1,0 +1,1 @@
+import dir.ClassB;public class Application {public static void main(String[] args){ClassA a = new ClassA();ClassB b = new ClassB();System.out.println("hello world from main！");}}

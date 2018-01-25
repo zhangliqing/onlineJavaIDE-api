@@ -1,0 +1,1 @@
+public class ClassA {public ClassA(){System.out.println("this is ClassA");}}
