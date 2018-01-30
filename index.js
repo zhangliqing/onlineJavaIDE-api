@@ -8,7 +8,7 @@
  const bodyParser = require('body-parser');
  const path = require('path');
  const jsonfile = require('jsonfile');
-
+const childProcess = require('child_process');
  const app = express();
  const router = express.Router();
 
@@ -34,9 +34,7 @@ req.header:
     res.send(404,'file not exist!')
   }
 })*/
-
-
- /*
+/*
  req.body:
  {
    "experimentId": 4,
@@ -90,7 +88,7 @@ req.header:
 
 app.get('/result/:userid/:experimentid',function(req,res) {
 
-  var baseDir = '/data/'+req.params.userid+'_'+req.params.experimentid;
+  var baseDir = '/srcData/'+req.params.userid+'_'+req.params.experimentid;
   var compile = function(dir) {
     var compileResult='';
     var execResult='';
