@@ -88,7 +88,7 @@ req.header:
 
 app.get('/result/:userid/:experimentid',function(req,res) {
 
-  var baseDir = '/srcData/'+req.params.userid+'_'+req.params.experimentid;
+  var workingDir = '/srcData/workspace/'+req.params.userid+'_'+req.params.experimentid+'/working-dir/';
   var compile = function(dir) {
     var compileResult='';
     var execResult='';
@@ -124,8 +124,8 @@ app.get('/result/:userid/:experimentid',function(req,res) {
       }
     });
   }
-  compile(baseDir)
-  //res.send(200,'received')
+  compile(workingDir)
+
 })
 
 app.listen(8080, function () {
