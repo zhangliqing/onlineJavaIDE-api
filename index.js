@@ -89,14 +89,20 @@ req.header:
 app.get('/result/:userid/:experimentid',function(req,res) {
 
   var workingDir = '/srcData/workspace/'+req.params.userid+'_'+req.params.experimentid+'/working-dir/';
+  //var workingDir = '/Users/zhangliqing/code/phoenix/onlineJavaIDE-api/test/';
   var compile = function(dir) {
     var compileResult='';
     var execResult='';
 
     //find all java files
     shell.cd(dir);
-    var javaFiles = shell.find('.').filter(function(file) { return file.match(/\.java$/); });
+    if(!fs.existsSync(workingDir+'build')){
+      shell.mkdir('build');
+    }
 
+    var javaFiles = shell.find('.').filter(function(file) { return file.match(/\.java$/); });
+    javaFiles.push('-d');
+    javaFiles.push('./build');
     //compile
     var javac = childProcess.spawn('javac',javaFiles,{encoding:'UTF-8'})
     javac.stderr.on('data', function (data) {
@@ -109,6 +115,7 @@ app.get('/result/:userid/:experimentid',function(req,res) {
       if(code === 0){
 
         //execute
+        shell.cd('./build')
         var java = childProcess.spawn('java',['Application'])
         java.stderr.on('data', function (data) {
           execResult += data;
